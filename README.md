@@ -103,5 +103,50 @@ public:
     }
 };
 
-删除第
+删除倒数第N个节点 19
+1.遍历法
+遍历法首先计算链表长度，然后长度减去n在减1就是删除节点的前一个节点，然后就是常规删除
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* dummynode = new ListNode(0);
+        dummynode -> next = head;
+        int s = 0;
+        ListNode* temp = dummynode;
+        while(temp){
+            temp = temp ->next;
+            s++;
+        }
+        int index1 = s - n - 1;
+        ListNode* cur = dummynode;
+        for(int i = 0;i < index1;i++){
+            cur = cur -> next;
+        }
+        cur -> next = cur -> next -> next;
+        return dummynode -> next;
+    }   
+};
+2.双指针法
+双指针法的重点在于快指针比指针快n+1的点，当快指针到空的时候，慢指针正好在删除节点的前一个节点，直接可以删除
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* dummynode = new ListNode(0);
+        dummynode -> next = head;
+        ListNode* slow = dummynode;
+        ListNode* fast = dummynode;
+        for(int i = 0;i <=n;i++){这里的<=就是n+1
+            fast = fast->next;
+        }
+        while(fast){
+            slow = slow->next;
+            fast = fast->next;
+        }
+        slow->next = slow->next->next;
+        return dummynode->next;
+    }
+        
+};
+
+
 
