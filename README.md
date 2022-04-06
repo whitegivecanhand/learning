@@ -149,4 +149,32 @@ public:
 };
 
 
+环形链表 142
+环形链表的重点在于快慢指针的追及，快指针一次两个，慢指针一次一个，快指针首先进入环，由于快指针速度是慢指针两倍，因此慢指针在进入环后一定会在一圈之内被快指针追上，如果快指针一次三个，可能会跳过慢指针，设进环前长度x，环中相遇点距环入口y和z，环长z+y,快指针路程为x+y+n(z+y),慢指针路程为x+y，由速度得公式：x+y+n(z+y) = 2(x + y),化简为x = nz + (n-1)y,n大于等于1，是1的时候则x=z，在头节点和相遇节点开始同时出发就能在入口碰头，如果N大于1，则相遇节点里的指针会多转几圈，还是会在入口相遇。
+
+
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        ListNode* fast = head;
+        ListNode* slow = head;
+        while(fast != nullptr && fast -> next != nullptr){
+            slow = slow->next;
+            fast = fast->next->next;
+            if (slow == fast){
+                ListNode* index1 = slow;
+                ListNode* index2 = head;
+                while(index1 != index2){
+                    index1 = index1->next;
+                    index2 = index2->next;
+                }return index1;
+
+            }
+        }return nullptr;
+        
+    }
+};
+
+哈希表
+有效的字母异位词
 
